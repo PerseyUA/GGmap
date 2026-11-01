@@ -205,7 +205,8 @@ abstract final class MgrsParser {
     return ((bbox[1] + bbox[3]) / 2, (bbox[0] + bbox[2]) / 2);
   }
 
-  static final _encoded = RegExp(r'^0*(\d{1,2})([A-Z])([A-Z]{2})(\d{5})(\d{5})$');
+  static final _encoded =
+      RegExp(r'^0*(\d{1,2})([A-Z])([A-Z]{2})(\d{5})(\d{5})$');
 
   /// Encodes [lat]/[lon] to compact MGRS with [precision] digit pairs.
   static String? _reencode(double lat, double lon, int precision) {
