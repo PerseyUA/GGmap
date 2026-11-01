@@ -160,8 +160,10 @@ abstract final class MgrsParser {
       // Round trip: the center must encode back to the same record.
       // This rejects squares that do not exist in the zone and band
       // letters that do not match the latitude.
-      final back = Mgrs.forward([lon, lat], half);
-      if (back.toUpperCase() != compact) {
+      // mgrs_dart 3.0.0 truncates wrongly for accuracy < 5 (keeps the last
+      // digits), so we always encode at 1 m and compare the leading digits.
+      final back = _reencode(lat, lon, half);
+      if (back != compact) {
         return const MgrsParseResult.fail(MgrsError.invalidCombination);
       }
       return MgrsParseResult.ok(
@@ -185,10 +187,13 @@ abstract final class MgrsParser {
   /// (e.g. `12` at 1 km -> `12500`), converted exactly. For 1 m precision the
   /// centre is the middle of the 1 m cell bounding box.
   static (double, double) _cellCenter(
-    String prefix,
+    String rawPrefix,
     String easting,
     String northing,
   ) {
+    // mgrs_dart 3.0.0 always reads two characters for the zone, so single
+    // digit zones must be zero-padded ("4QFJ" -> "04QFJ").
+    final prefix = rawPrefix.length == 4 ? '0$rawPrefix' : rawPrefix;
     final p = easting.length;
     if (p < 5) {
       final pad = '5'.padRight(5 - p, '0');
@@ -198,6 +203,19 @@ abstract final class MgrsParser {
     // inverse -> [left, bottom, right, top]
     final bbox = Mgrs.inverse('$prefix$easting$northing');
     return ((bbox[1] + bbox[3]) / 2, (bbox[0] + bbox[2]) / 2);
+  }
+
+  static final _encoded = RegExp(r'^0*(\d{1,2})([A-Z])([A-Z]{2})(\d{5})(\d{5})$');
+
+  /// Encodes [lat]/[lon] to compact MGRS with [precision] digit pairs.
+  static String? _reencode(double lat, double lon, int precision) {
+    final full = Mgrs.forward([lon, lat], 5).toUpperCase();
+    final m = _encoded.firstMatch(full);
+    if (m == null) return null;
+    final zone = int.parse(m.group(1)!);
+    return '$zone${m.group(2)}${m.group(3)}'
+        '${m.group(4)!.substring(0, precision)}'
+        '${m.group(5)!.substring(0, precision)}';
   }
 
   /// Proposes a correction for look-alike characters, or null.

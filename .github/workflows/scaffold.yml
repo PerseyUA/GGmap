@@ -1,12 +1,12 @@
-# One-off workflow: generates the Flutter Android scaffold and formats code.
+# Temporary dev-assist workflow for the stage 1 branch.
 # The development container cannot reach pub.dev / Flutter servers, so
-# generation runs here. This file is removed once the scaffold is committed.
-name: scaffold (one-off)
+# scaffolding, formatting and the analyze/test reports are produced here
+# and committed back. Removed before the branch is merged.
+name: dev-assist (temporary)
 
 on:
   push:
     branches: [feat/stage1-prototype]
-    paths: [.github/workflows/scaffold.yml]
 
 permissions:
   contents: write
