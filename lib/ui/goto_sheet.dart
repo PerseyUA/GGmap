@@ -33,7 +33,8 @@ class _GotoSheetState extends State<_GotoSheet> {
   }
 
   void _validate(String text) {
-    setState(() => _result = text.trim().isEmpty ? null : MgrsParser.parse(text));
+    setState(
+        () => _result = text.trim().isEmpty ? null : MgrsParser.parse(text));
   }
 
   Future<void> _paste() async {

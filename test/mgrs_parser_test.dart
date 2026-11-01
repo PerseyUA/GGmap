@@ -78,16 +78,22 @@ void main() {
     }
 
     test('empty', () => expectError('   ', MgrsError.empty));
-    test('bad characters', () => expectError('11SPA72349-11844', MgrsError.invalidCharacters));
+    test('bad characters',
+        () => expectError('11SPA72349-11844', MgrsError.invalidCharacters));
     test('zone 0', () => expectError('0SPA7234911844', MgrsError.invalidZone));
-    test('zone 61', () => expectError('61SPA7234911844', MgrsError.invalidZone));
+    test(
+        'zone 61', () => expectError('61SPA7234911844', MgrsError.invalidZone));
     test('band I', () => expectError('11IPA7234911844', MgrsError.invalidBand));
     test('band Y', () => expectError('11YPA7234911844', MgrsError.invalidBand));
-    test('odd digits', () => expectError('11SPA723491184', MgrsError.oddDigits));
-    test('12 digits', () => expectError('11SPA723491118440', MgrsError.tooManyDigits));
+    test(
+        'odd digits', () => expectError('11SPA723491184', MgrsError.oddDigits));
+    test('12 digits',
+        () => expectError('11SPA723491118440', MgrsError.tooManyDigits));
     test('no digits', () => expectError('11SPA', MgrsError.noDigits));
-    test('row letter W is never valid', () => expectError('11SPW7234911844', MgrsError.invalidCombination));
-    test('column letter from another zone set', () => expectError('11SAA7234911844', MgrsError.invalidCombination));
+    test('row letter W is never valid',
+        () => expectError('11SPW7234911844', MgrsError.invalidCombination));
+    test('column letter from another zone set',
+        () => expectError('11SAA7234911844', MgrsError.invalidCombination));
     test('shortened record without working area', () {
       expectError('PA 72349 11844', MgrsError.incomplete);
       expectError('72349 11844', MgrsError.incomplete);

@@ -1,0 +1,63 @@
+00:00 +0: loading /home/runner/work/GGmap/GGmap/test/mgrs_parser_test.dart
+00:00 +0: full records 1 m precision, Nevada (library README vector)
+00:00 +1: full records spaces and lower case are normalized
+00:00 +2: full records single digit zone, Hawaii
+00:00 +2 -1: full records single digit zone, Hawaii [E]
+  Expected: true
+    Actual: <false>
+  4QFJ1234567890 -> MgrsError.invalidCombination
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/mgrs_parser_test.dart 13:5                     main.expectCenter
+  test/mgrs_parser_test.dart 31:7                     main.<fn>.<fn>
+  
+00:00 +2 -1: full records equator and prime meridian
+00:00 +3 -1: full records southern hemisphere, Chile
+00:00 +4 -1: full records Norway special zone 32V
+00:00 +5 -1: full records Germany
+00:00 +6 -1: precision and cell centre 10 km cell -> centre of the cell
+00:00 +6 -2: precision and cell centre 10 km cell -> centre of the cell [E]
+  Expected: true
+    Actual: <false>
+  11SPA72 -> MgrsError.invalidCombination
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/mgrs_parser_test.dart 13:5                     main.expectCenter
+  test/mgrs_parser_test.dart 53:7                     main.<fn>.<fn>
+  
+00:00 +6 -2: precision and cell centre 1 km cell, far south
+00:00 +6 -3: precision and cell centre 1 km cell, far south [E]
+  Expected: true
+    Actual: <false>
+  60CWT1234 -> MgrsError.invalidCombination
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/mgrs_parser_test.dart 13:5                     main.expectCenter
+  test/mgrs_parser_test.dart 61:7                     main.<fn>.<fn>
+  
+00:00 +6 -3: precision and cell centre 1 m cell label
+00:00 +7 -3: rejected records empty
+00:00 +8 -3: rejected records bad characters
+00:00 +9 -3: rejected records zone 0
+00:00 +10 -3: rejected records zone 61
+00:00 +11 -3: rejected records band I
+00:00 +12 -3: rejected records band Y
+00:00 +13 -3: rejected records odd digits
+00:00 +14 -3: rejected records 12 digits
+00:00 +15 -3: rejected records no digits
+00:00 +16 -3: rejected records row letter W is never valid
+00:00 +17 -3: rejected records column letter from another zone set
+00:00 +18 -3: rejected records shortened record without working area
+00:00 +19 -3: look-alike characters are suggested, not applied (MGRS-5) O instead of 0 in digits
+00:00 +20 -3: look-alike characters are suggested, not applied (MGRS-5) I instead of 1 in zone
+00:00 +21 -3: look-alike characters are suggested, not applied (MGRS-5) 5 instead of S in band
+00:00 +22 -3: look-alike characters are suggested, not applied (MGRS-5) no suggestion for hopeless input
+00:00 +23 -3: Some tests failed.
+
+Failing tests:
+  /home/runner/work/GGmap/GGmap/test/mgrs_parser_test.dart: full records single digit zone, Hawaii
+  /home/runner/work/GGmap/GGmap/test/mgrs_parser_test.dart: precision and cell centre 1 km cell, far south
+  /home/runner/work/GGmap/GGmap/test/mgrs_parser_test.dart: precision and cell centre 10 km cell -> centre of the cell
