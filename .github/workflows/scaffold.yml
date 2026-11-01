@@ -1,0 +1,59 @@
+# Temporary dev-assist workflow for the stage 1 branch.
+# The development container cannot reach pub.dev / Flutter servers, so
+# scaffolding, formatting and the analyze/test reports are produced here
+# and committed back. Removed before the branch is merged.
+name: dev-assist (temporary)
+
+on:
+  push:
+    branches: [feat/stage1-prototype]
+
+permissions:
+  contents: write
+
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version | tee flutter-version.txt
+
+      - name: Generate Android scaffold
+        run: |
+          had_test=$(test -f test/widget_test.dart && echo yes || echo no)
+          flutter create --org ua.ggmap --project-name ggmap --platforms android .
+          if [ "$had_test" = "no" ]; then rm -f test/widget_test.dart; fi
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Format
+        run: dart format lib test
+
+      - name: Analyze (report only)
+        run: flutter analyze --no-fatal-infos > analyze.txt 2>&1 || true
+
+      - name: Test (report only)
+        run: flutter test --reporter expanded > test.txt 2>&1 || true
+
+      - name: Commit generated files
+        run: |
+          mkdir -p .ci-report
+          mv flutter-version.txt analyze.txt test.txt .ci-report/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: generate android scaffold and format code" || echo "nothing to commit"
+          git push

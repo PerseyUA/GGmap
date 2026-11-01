@@ -1,0 +1,25 @@
+name: ggmap
+description: "GGMap — супутникова карта, координати MGRS і локальні мітки."
+publish_to: "none"
+
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_map: ^8.3.0
+  latlong2: ^0.9.1
+  mgrs_dart: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

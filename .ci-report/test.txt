@@ -1,0 +1,28 @@
+00:00 +0: loading /home/runner/work/GGmap/GGmap/test/mgrs_parser_test.dart
+00:00 +0: full records 1 m precision, Nevada (library README vector)
+00:00 +1: full records spaces and lower case are normalized
+00:00 +2: full records single digit zone, Hawaii
+00:00 +3: full records equator and prime meridian
+00:00 +4: full records southern hemisphere, Chile
+00:00 +5: full records Norway special zone 32V
+00:00 +6: full records Germany
+00:00 +7: precision and cell centre 10 km cell -> centre of the cell
+00:00 +8: precision and cell centre 1 km cell, far south
+00:00 +9: precision and cell centre 1 m cell label
+00:00 +10: rejected records empty
+00:00 +11: rejected records bad characters
+00:00 +12: rejected records zone 0
+00:00 +13: rejected records zone 61
+00:00 +14: rejected records band I
+00:00 +15: rejected records band Y
+00:00 +16: rejected records odd digits
+00:00 +17: rejected records 12 digits
+00:00 +18: rejected records no digits
+00:00 +19: rejected records row letter W is never valid
+00:00 +20: rejected records column letter from another zone set
+00:00 +21: rejected records shortened record without working area
+00:00 +22: look-alike characters are suggested, not applied (MGRS-5) O instead of 0 in digits
+00:00 +23: look-alike characters are suggested, not applied (MGRS-5) I instead of 1 in zone
+00:00 +24: look-alike characters are suggested, not applied (MGRS-5) 5 instead of S in band
+00:00 +25: look-alike characters are suggested, not applied (MGRS-5) no suggestion for hopeless input
+00:00 +26: All tests passed!
