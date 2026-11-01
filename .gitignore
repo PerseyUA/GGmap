@@ -4,6 +4,9 @@
 !.env.example
 *.pem
 *.key
+*.jks
+*.keystore
+android/key.properties
 
 # OS / editors
 .DS_Store
@@ -13,14 +16,32 @@ desktop.ini
 !.vscode/extensions.json
 !.vscode/settings.json
 .idea/
+*.iml
 
 # Logs / temp
 *.log
 tmp/
 temp/
 
-# Build output (додамо специфічне для стеку пізніше)
+# Build output
 dist/
 build/
 out/
 coverage/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+
+# Android
+android/.gradle/
+android/local.properties
+android/captures/
+android/app/debug/
+android/app/profile/
+android/app/release/
+**/android/**/GeneratedPluginRegistrant.java
